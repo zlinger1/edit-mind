@@ -35,6 +35,10 @@ class ActivityPlugin(AnalyzerPlugin):
         )
 
     def analyze_frame(self, frame: np.ndarray, frame_analysis: FrameAnalysis, video_path: str) -> FrameAnalysis:
+       
+       if self.model is None or self.processor is None:
+           return frame_analysis
+       else:
         image = Image.fromarray(frame)
 
         inputs = self.processor(image, return_tensors="pt")
